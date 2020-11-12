@@ -1,5 +1,5 @@
 ---
-title: Create an Azure data factory using the Azure Data Factory UI 
+title: Create an Azure Data Factory using the Azure Data Factory UI 
 description: Create a data factory with a pipeline that copies data from one location in Azure Blob storage to another location.
 services: data-factory
 documentationcenter: ''
@@ -43,7 +43,7 @@ Watching this video helps you understand the Data Factory UI:
    ![Data Factory selection in the "New" pane](./media/doc-common-process/new-azure-data-factory-menu.png)
 1. On the **New data factory** page, enter **ADFTutorialDataFactory** for **Name**. 
  
-   The name of the Azure data factory must be *globally unique*. If you see the following error, change the name of the data factory (for example, **&lt;yourname&gt;ADFTutorialDataFactory**) and try creating again. For naming rules for Data Factory artifacts, see the [Data Factory - naming rules](naming-rules.md) article.
+   The name of the Azure Data Factory must be *globally unique*. If you see the following error, change the name of the data factory (for example, **&lt;yourname&gt;ADFTutorialDataFactory**) and try creating again. For naming rules for Data Factory artifacts, see the [Data Factory - naming rules](naming-rules.md) article.
   
    ![Error when a name is not available](./media/doc-common-process/name-not-available-error.png)
 1. For **Subscription**, select your Azure subscription in which you want to create the data factory. 
