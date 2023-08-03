@@ -26,7 +26,7 @@ Azure Functions currently supports the following methods of deployment to Azure 
 + [Azure CLI](./functions-deploy-container-apps.md)
 + Azure portal
 + GitHub Actions
-+ Azure Pipeline tasks
++ Azure Pipelines tasks
 + ARM templates
 + [Bicep templates](https://github.com/Azure/azure-functions-on-container-apps/tree/main/samples/Biceptemplates)
 + Azure Functions core tools
