@@ -1,5 +1,5 @@
 ---
-title: Rules for dynamically populated groups membership - Azure AD | Microsoft Docs
+title: Rules for dynamically populated groups membership
 description: How to create membership rules to automatically populate groups, and a rule reference.
 services: active-directory
 documentationcenter: ''
@@ -9,7 +9,7 @@ ms.service: active-directory
 ms.subservice: enterprise-users
 ms.workload: identity
 ms.topic: overview
-ms.date: 08/18/2022
+ms.date: 06/07/2023
 ms.author: barclayn
 ms.reviewer: krbain
 ms.custom: it-pro
@@ -96,6 +96,7 @@ dirSyncEnabled |true false |user.dirSyncEnabled -eq true
 | department |Any string value or *null* | user.department -eq "value" |
 | displayName |Any string value | user.displayName -eq "value" |
 | employeeId |Any string value | user.employeeId -eq "value"<br>user.employeeId -ne *null* |
+| employeeHireDate (Preview) |Any DateTimeOffset value or keyword system.now | user.employeeHireDate -eq "value" |
 | facsimileTelephoneNumber |Any string value or *null* | user.facsimileTelephoneNumber -eq "value" |
 | givenName |Any string value or *null* | user.givenName -eq "value" |
 | jobTitle |Any string value or *null* | user.jobTitle -eq "value" |
@@ -154,9 +155,20 @@ If you want to compare the value of a user attribute against multiple values, yo
 ```
    user.department -in ["50001","50002","50003","50005","50006","50007","50008","50016","50020","50024","50038","50039","51100"]
 ```
+### Using the -le and -ge operators
 
+You can use the less than (-le) or greater than (-ge) operators when using the employeeHireDate attribute in dynamic group rules.  
+Examples:
+
+```
+user.employeehiredate -ge system.now -plus p1d 
+
+user.employeehiredate -le 2020-06-10T18:13:20Z 
+
+```
 
 ### Using the -match operator 
+
 The **-match** operator is used for matching any regular expression. Examples:
 
 ```
@@ -281,7 +293,7 @@ user.assignedPlans -any (assignedPlan.service -eq "SCO" -and assignedPlan.capabi
 The following expression selects all users who have no assigned service plan:
 
 ```
-user.assignedPlans -all (assignedPlan.servicePlanId -eq "")
+user.assignedPlans -all (assignedPlan.servicePlanId -ne null)
 ```
 
 ### Using the underscore (\_) syntax
@@ -379,7 +391,10 @@ You can also create a rule that selects device objects for membership in a group
 > [!NOTE]
 > systemlabels is a read-only attribute that cannot be set with Intune.
 >
-> For Windows 10, the correct format of the deviceOSVersion attribute is as follows: (device.deviceOSVersion -startsWith "10.0.1"). The formatting can be validated with the Get-MsolDevice PowerShell cmdlet.
+> For Windows 10, the correct format of the deviceOSVersion attribute is as follows: (device.deviceOSVersion -startsWith "10.0.1"). The formatting can be validated with the Get-MgDevice PowerShell cmdlet:
+> ```
+> Get-MgDevice -Search "displayName:YourMachineNameHere" -ConsistencyLevel eventual | Select-Object -ExpandProperty 'OperatingSystemVersion'
+> ```
 
 The following device attributes can be used.
 
